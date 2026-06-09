@@ -1,0 +1,12 @@
+.mu-edit-info {
+  position: relative;
+  min-height: 20px;
+
+  .mu-value-item{
+    color: #666;
+  }
+
+  .mu-trigger-item{
+    color: gray;
+  }
+}

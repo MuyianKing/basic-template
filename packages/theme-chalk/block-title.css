@@ -1,0 +1,54 @@
+.mu-block-title {
+  display: flex;
+
+  .block {
+    border-radius: 5px;
+    width: 5px;
+    height: auto;
+    margin-right: 8px;
+    padding: 5px 0;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .primary {
+    background-image: linear-gradient(to bottom, #78c6ff, #1c82f1);
+  }
+
+  .success {
+    background-image: linear-gradient(#dbe89b, #81c69e);
+  }
+
+  .danger {
+    background-image: linear-gradient(#f08c85, #d8353a);
+  }
+}
+
+.mu-flat-block-title {
+  display: flex;
+
+  .block {
+    width: 5px;
+    height: auto;
+    margin-right: 8px;
+    padding: 5px 0;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .primary {
+    background-color: var(--color-primary);
+  }
+
+  .success {
+    background-color: var(--color-success);
+  }
+
+  .danger {
+    background-color: var(--color-danger);
+  }
+}

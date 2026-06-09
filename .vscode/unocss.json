@@ -1,0 +1,11 @@
+{
+  "version": 1.0,
+  "atDirectives": [
+    {
+      "name": "@apply"
+    },
+    {
+      "name": "@unocss"
+    }
+  ]
+}

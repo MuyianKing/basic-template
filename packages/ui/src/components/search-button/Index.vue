@@ -1,0 +1,24 @@
+<script setup>
+import { inject } from 'vue'
+import LucideSearch from '~icons/lucide/search'
+import ButtonComp from '../button/Index.vue'
+
+defineProps({
+  icon: {
+    type: [Boolean, undefined],
+    default: undefined,
+  },
+  text: {
+    type: String,
+    default: '查询',
+  },
+})
+
+const { buttonIcon } = inject('GLOBAL_CUSTOM_CONFIG', { buttonIcon: true })
+</script>
+
+<template>
+  <button-comp :icon="LucideSearch" :show-icon="icon !== undefined ? icon : buttonIcon" :text="$slots.default ? '' : text">
+    <slot />
+  </button-comp>
+</template>

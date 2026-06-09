@@ -1,0 +1,6 @@
+{
+  "name": "@mu/ui",
+  "type": "module",
+  "version": "0.7.25",
+  "main": "./index.js"
+}

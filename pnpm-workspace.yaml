@@ -1,0 +1,10 @@
+shellEmulator: true
+
+trustPolicy: off
+packages:
+  - packages/**
+  - app/**
+allowBuilds:
+  core-js: true
+  unrs-resolver: true
+  vue-demi: true

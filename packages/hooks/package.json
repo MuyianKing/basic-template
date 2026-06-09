@@ -1,0 +1,8 @@
+{
+  "name": "@mu/hooks",
+  "type": "module",
+  "version": "0.7.10",
+  "license": "ISC",
+  "keywords": [],
+  "main": "./index.js"
+}
