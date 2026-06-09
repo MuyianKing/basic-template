@@ -41,7 +41,7 @@
         "./src/assets/style/*"
       ],
       "@http/*": [
-        "./app/avs/src/utils/request"
+        "./app/demo/src/utils/request"
       ],
       "@api/*": [
         "./src/api"

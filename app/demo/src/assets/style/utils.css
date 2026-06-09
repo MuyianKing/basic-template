@@ -1,0 +1,52 @@
+/* 水平垂直居中 */
+.position-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+/* 水平垂直居中 */
+.relative-center {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.select-none {
+  user-select: none;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1-0 {
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+}
+
+.click-text {
+  color: var(--color-primary);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.w-f-m-20 {
+  width: calc(100% - 20px);
+  margin-left: 10px;
+  margin-top: 10px;
+  max-height: calc(100% - 20PX);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}

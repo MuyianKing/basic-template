@@ -23,6 +23,6 @@ export default antfu({
   },
 }, ...compat.config({
   extends: [
-    './app/avs/.eslintrc-auto-import.json',
+    './app/demo/.eslintrc-auto-import.json',
   ],
 }))
