@@ -6,11 +6,11 @@
       "@/*": [
         "./src/*"
       ],
+      "@api/*": [
+        "./src/api/*"
+      ],
       "@comp/*": [
         "./src/components/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
       ],
       "@def/*": [
         "./src/default/*"
@@ -39,24 +39,26 @@
       "@style/*": [
         "./src/assets/style/*"
       ],
-      "@http": [
-        "./src/utils/request"
-      ],
-      "@api/*": [
-        "./src/api"
-      ],
       "@layout/*": [
         "./src/layout/*"
       ],
+      "@directions/*": [
+        "./src/directions/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
       "@app": [
         "./src/utils/app"
+      ],
+      "@http": [
+        "./src/utils/request"
       ]
     },
     "allowJs": true
   },
   "include": [
-    "**/*",
-    "src/views/home/Index.vue"
+    "**/*"
   ],
   "exclude": [
     "node_modules",

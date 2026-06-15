@@ -10,7 +10,10 @@ import Icons from 'unplugin-icons/rspack'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/rspack'
 
-import useAlias from './alias.config'
+import useAlias, { syncJsconfig } from './alias.config'
+
+// 启动构建时自动把别名同步到 jsconfig.json，IDE 与运行时保持单一数据源
+await syncJsconfig()
 
 const { alias_map } = useAlias()
 const { publicVars } = loadEnv({ prefixes: ['VITE_'] })

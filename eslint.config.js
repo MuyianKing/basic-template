@@ -14,8 +14,9 @@ export default antfu({
     // https://eslint.vuejs.org/rules/singleline-html-element-content-newline.html#vue-singleline-html-element-content-newline
     'vue/singleline-html-element-content-newline': 0,
     'e18e/prefer-static-regex': 0,
+    'node/prefer-global/process': 0,
   },
-  files: ['**/src/**', '**/packages/*/**', '**/app/*/src/**', '**/script/**', './pnpm-workspace.yaml'],
+  files: ['**/src/**', '**/packages/*/**', '**/app/*/src/**', '**/script/**', './pnpm-workspace.yaml', './app/*/alias.config.js'],
   languageOptions: {
     globals: {
 
