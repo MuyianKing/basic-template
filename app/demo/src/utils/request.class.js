@@ -53,6 +53,19 @@ export class Http {
   }
 
   setInterceptors() {
+    // 添加请求拦截器
+    this.instance.interceptors.request.use((config) => {
+      if (typeof this.interceptors.request === 'function') {
+        return this.interceptors.request(config)
+      }
+
+      const user = useUserStore()
+      if (isTruth(user.token)) {
+        config.headers.token = user.token
+      }
+      return config
+    })
+
     // 添加响应拦截器
     this.instance.interceptors.response.use(async (response) => {
       const data = await parseResponseData(response.data)
@@ -106,7 +119,7 @@ export class Http {
       }
 
       // 认证失败：直接跳到登录
-      if (resp_error.code === '-2') {
+      if (resp_error.errno === '-2') {
         if (!window.location.href.includes('#/login')) {
           window.location.href = `#/login?msg=${encodeURIComponent(resp_error.error)}`
           setTimeout(() => {
@@ -117,19 +130,6 @@ export class Http {
 
       return Promise.reject(resp_error)
     })
-
-    // 添加请求拦截器
-    this.instance.interceptors.request.use((config) => {
-      if (typeof this.interceptors.request === 'function') {
-        return this.interceptors.request(config)
-      }
-
-      const user = useUserStore()
-      if (isTruth(user.token)) {
-        config.headers.token = user.token
-      }
-      return config
-    })
   }
 
   async post(url, data, options) {
@@ -138,11 +138,6 @@ export class Http {
     data = data || {}
 
     const headers = { 'Content-Type': 'application/json', ..._options?.headers }
-
-    // 手动序列化：axios对JSON Content-Type会自动序列化，但手动控制可避免拦截器修改data后重复序列化
-    if (headers['Content-Type'].startsWith('application/json')) {
-      data = JSON.stringify(data)
-    }
 
     return this.request({
       method: 'post',

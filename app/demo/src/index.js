@@ -4,7 +4,6 @@ import App from '@/App.vue'
 import pinia from '@/pinia'
 import router from '@/router'
 
-import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@style/theme.css'
 import '@style/main.css'
 import '@style/custome.css'

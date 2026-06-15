@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    // 忽略所有未找到声明文件的模块的错误
-    "skipLibCheck": true
-  }
-}

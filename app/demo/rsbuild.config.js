@@ -35,8 +35,52 @@ export default defineConfig({
     }),
     pluginVue(),
     pluginVueJsx(),
-    pluginImageCompress(),
+    pluginImageCompress([
+      // 位图使用有损压缩，质量略调低进一步缩体积
+      { use: 'jpeg', test: /\.jpe?g$/, quality: 75 },
+      { use: 'png', test: /\.png$/ },
+      { use: 'ico', test: /\.ico$/ },
+      // svg 走默认无损压缩
+      { use: 'svg', test: /\.svg$/ },
+    ]),
   ],
+  resolve: {
+    alias: alias_map,
+  },
+  source: {
+    define: publicVars,
+  },
+  output: {
+    // usage 模式按代码实际用到的 API 注入 polyfill，配合 .browserslistrc 体积更小
+    polyfill: 'usage',
+    legalComments: 'none',
+    sourceMap: {
+      js: false,
+    },
+  },
+  performance: {
+    chunkSplit: {
+      strategy: 'split-by-experience',
+      forceSplitting: {
+        // 网络/请求
+        axios: /node_modules[\\/]axios/,
+        // UI 框架
+        elementplus: /node_modules[\\/]element-plus/,
+        // 大体量可视化 / 文档处理（建议在页面里 dynamic import）
+        echarts: /node_modules[\\/]echarts/,
+        three: /node_modules[\\/]three/,
+        logicflow: /node_modules[\\/]@logicflow/,
+        wavesurfer: /node_modules[\\/]wavesurfer\.js/,
+        jspdf: /node_modules[\\/]jspdf/,
+        // 工具库
+        lodash: /node_modules[\\/]lodash-es/,
+        validator: /node_modules[\\/]validator/,
+        dayjs: /node_modules[\\/]dayjs/,
+        // Vue 生态
+        vueVendor: /node_modules[\\/](?:@vue|vue|vue-router|pinia|pinia-plugin-persistedstate|@vueuse)[\\/]/,
+      },
+    },
+  },
   tools: {
     rspack: {
       plugins: [
@@ -63,27 +107,15 @@ export default defineConfig({
         }),
       ],
     },
-  },
-  resolve: {
-    alias: alias_map,
-  },
-  source: {
-    define: publicVars,
-  },
-  output: {
-    polyfill: 'entry',
-    legalComments: 'none',
-    sourceMap: {
-      js: false,
-    },
-  },
-  performance: {
-    chunkSplit: {
-      forceSplitting: {
-        axios: /node_modules[\\/]axios/,
-        elementplus: /node_modules[\\/]element-plus/,
-        echarts: /node_modules[\\/]echarts/,
-        validator: /node_modules[\\/]validator/,
+    swc: {
+      jsc: {
+        // 生产构建移除 console.log/debug（保留 warn/error，与项目约束一致）
+        minify: {
+          compress: {
+
+            pure_funcs: ['console.log', 'console.debug'],
+          },
+        },
       },
     },
   },
