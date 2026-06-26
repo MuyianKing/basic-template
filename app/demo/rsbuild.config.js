@@ -110,17 +110,6 @@ export default defineConfig({
         }),
       ],
     },
-    swc: {
-      jsc: {
-        // 生产构建移除 console.log/debug（保留 warn/error，与项目约束一致）
-        minify: {
-          compress: {
-
-            pure_funcs: ['console.log', 'console.debug'],
-          },
-        },
-      },
-    },
   },
   dev: {},
 })

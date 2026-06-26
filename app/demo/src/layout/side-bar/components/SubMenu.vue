@@ -1,4 +1,6 @@
 <script setup>
+import { ElMenuItem, ElSubMenu } from 'element-plus'
+
 defineProps({
   menu: {
     type: Object,
