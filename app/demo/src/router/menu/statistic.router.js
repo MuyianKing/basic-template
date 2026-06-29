@@ -26,12 +26,4 @@ export default [
       icon: MaterialSymbolsBook,
     },
   },
-  {
-    path: '/test2',
-    component: () => import('@/views/test/Index2.vue'),
-    meta: {
-      title: '测试2',
-      icon: MaterialSymbolsBook,
-    },
-  },
 ]

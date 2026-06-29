@@ -27,6 +27,7 @@ basic-template/
 ```
 
 约束：
+
 - 新增内部包必须放在 `packages/` 下，且包名以 `@mu/` 为前缀。
 - 新增应用必须放在 `app/` 下。
 - `packages/ui` 下每个组件必须遵循目录约定：`components/<kebab-name>/{Index.vue, index.js, style/index.js}`。
@@ -46,6 +47,7 @@ basic-template/
 - **样式**：Tailwind CSS（仅在 `app/demo` 中）+ theme-chalk CSS
 
 约束：
+
 - 新增第三方依赖前需评估是否与已有库重复（如不要再引入 moment、underscore）。
 - 不允许引入 jQuery、Vue 2 相关包。
 - 时间处理统一使用 dayjs，工具函数优先使用 lodash-es 与 @muyianking/utils。
@@ -78,8 +80,9 @@ basic-template/
 - 单文件组件统一使用 `<script setup>`，避免 Options API（除特殊场景）。
 - Props 必须显式声明类型与默认值；事件必须通过 `defineEmits` 声明。
 - 避免在模板中写复杂表达式，超过两层逻辑应抽离为 `computed`。
-- 自定义指令统一放在 `packages/directives`，不在业务代码内联定义全局指令。
-- 通用业务组件下沉到 `packages/smartui` 或 `packages/ui`，禁止在 `app/demo` 中重复实现已存在的能力。
+- `:style` 中禁止使用对象字面量定义动态样式，必须提取为计算属性。例如 `:style="{ top: \`${pos.top}px\`, opacity: visible ? 1 : 0 }"` 应改为 `const layerStyle = computed(() => ({ top: \`${pos.value.top}px\`, opacity: visible.value ? 1 : 0 }))`并在模板中使用`:style="layerStyle"`。
+- 禁止使用 scss、less 等 CSS 预处理器，统一使用原生 CSS
+- 没有明确的指令不能修改packages下的任何文件，也不能创建任何文件
 
 ## 六、Git 与提交规范
 

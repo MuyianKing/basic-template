@@ -1,25 +1,10 @@
 <script setup>
 const props = defineProps({
-  field: {
-    type: String,
-    required: true,
-  },
-  modelValue: {
-    type: [String, Number, Boolean, Array, Date],
-    default: '',
-  },
-  placeholder: {
-    type: String,
-    default: '请选择',
-  },
-  displayValue: {
-    type: String,
-    default: '',
-  },
-  openMethod: {
-    type: Function,
-    default: null,
-  },
+  field: { type: String, required: true },
+  modelValue: { type: [String, Number, Boolean, Array, Date], default: '' },
+  placeholder: { type: String, default: '请选择' },
+  displayValue: { type: String, default: '' },
+  openMethod: { type: Function, default: null },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -52,15 +37,12 @@ function open(targetEl, currentValue, onOpenReady, onPick) {
 }
 
 function onChange(val) {
-  value.value = val ?? value.value
-  currentPick?.(value.value)
-  emit('update:modelValue', value.value)
+  currentPick?.(val)
 }
 
-function onVisibleChange(v) {
-  if (!v) {
+function onVisibleChange(val) {
+  if (!val)
     visible.value = false
-  }
 }
 
 function onClick() {
@@ -76,42 +58,55 @@ if (isHost) {
   watchEffect(() => {
     state.open = (el, val, onOpen, onPick) => open(el, val, onOpen, onPick)
   })
-}
-
-if (isHost) {
   watchEffect(() => {
     state.openMethod = props.openMethod
   })
 }
 
+const layerStyle = computed(() => ({
+  top: `${pos.value.top}px`,
+  left: `${pos.value.left}px`,
+  width: `${pos.value.width}px`,
+  opacity: visible.value ? 1 : 0,
+  pointerEvents: visible.value ? 'auto' : 'none',
+}))
+
 onBeforeUnmount(() => {
-  if (isHost) {
+  if (isHost)
     sharedMap.delete(props.field)
-  }
 })
 </script>
 
 <template>
-  <div ref="trigger" class="flex items-center w-[200px] h-[32px] border rounded cursor-pointer px-2" @click="onClick">
+  <div ref="trigger" class="singleton-trigger" @click="onClick">
     <slot name="trigger" :display-value="displayValue" :placeholder="placeholder">
       <span :class="(modelValue === '' || modelValue == null) ? 'text-gray-400' : ''">
         {{ displayValue || placeholder }}
       </span>
     </slot>
   </div>
+
   <teleport v-if="isHost" to="body">
-    <div class="fixed z-50"
-         :style="{
-           top: `${pos.top}px`,
-           left: `${pos.left}px`,
-           width: `${pos.width}px`,
-           opacity: visible ? 1 : 0,
-           pointerEvents: visible ? 'auto' : 'none',
-         }"
-    >
+    <div class="singleton-layer" :style="layerStyle">
       <slot :value="value" :on-change="onChange" :on-visible-change="onVisibleChange" />
     </div>
   </teleport>
 </template>
 
-<style lang='scss' scoped></style>
+<style scoped>
+.singleton-trigger {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.singleton-layer {
+  position: fixed;
+  z-index: 50;
+}
+</style>
