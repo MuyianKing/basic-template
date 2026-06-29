@@ -69,6 +69,7 @@ const layerStyle = computed(() => ({
   width: `${pos.value.width}px`,
   opacity: visible.value ? 1 : 0,
   pointerEvents: visible.value ? 'auto' : 'none',
+  transform: visible.value ? 'none' : 'translateX(-9999px)',
 }))
 
 onBeforeUnmount(() => {
