@@ -1,6 +1,0 @@
-{
-  "name": "@mu/smartui",
-  "type": "module",
-  "version": "0.7.25",
-  "main": "./index.js"
-}

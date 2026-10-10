@@ -1,5 +1,0 @@
-import 'element-plus/es/components/loading/style/css'
-import 'element-plus/es/components/progress/style/css'
-import '@mu/theme-chalk/upload.css'
-import '../../preview/style/index'
-import '../../icon/style/index'

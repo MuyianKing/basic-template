@@ -1,9 +1,12 @@
+minimumReleaseAgeExclude:
+  - '@muyianking/ui@0.0.1 || 0.0.2'
+  - '@muyianking/hooks@0.0.5'
+trustPolicy: off
 shellEmulator: true
 
-trustPolicy: off
 packages:
-  - packages/**
   - app/**
+
 allowBuilds:
   core-js: true
   unrs-resolver: true

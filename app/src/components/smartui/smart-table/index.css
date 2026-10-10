@@ -1,0 +1,15 @@
+.smart-table-operation-wrapper {
+  & > * {
+    margin: 0 0.25em;
+  }
+
+  .mu-icon {
+    font-size: 18px !important;
+  }
+
+  .mu-del-button {
+    .mu-icon {
+      font-size: 16px !important;
+    }
+  }
+}
