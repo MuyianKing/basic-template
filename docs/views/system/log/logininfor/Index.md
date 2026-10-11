@@ -2,7 +2,7 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/log/logininfor/Index.vue`
+- 源码：`app/src/views/system/log/logininfor/Index.vue`
 - 路由：`/system/log/logininfor`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system/log` 二级分组「日志管理」）
 - 字典：`app/src/const/log.js`（`LOGIN_STATUS_OPTIONS` 登录状态）
 - 接口声明：`app/src/api/logininfor.js`（模块前缀 `/monitor/logininfor`，经 `@http` 绑定为 `api.logininfor.*` 调用，方案见 docs/api.md）

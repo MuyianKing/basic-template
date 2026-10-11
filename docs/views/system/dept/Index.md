@@ -2,11 +2,11 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/dept/Index.vue`
+- 源码：`app/src/views/system/dept/Index.vue`
 - 路由：`/system/dept`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system`）
-- 私有子组件：`app/src/views/dept/components/EditDialog.vue`（经 `openDialog` 打开的新增/修改弹窗，内部用 useSmartForm）
+- 私有子组件：`app/src/views/system/dept/components/EditDialog.vue`（经 `openDialog` 打开的新增/修改弹窗，内部用 useSmartForm）
 - 表单模型：`app/src/model/dept.js`（DeptModel：字段规整与默认值）
-- 公共业务组件：[MuDeptTreeSelect](../../components/dept/Index.md)（`app/src/components/dept/Index.vue`，弹窗「上级部门」字段使用）
+- 公共业务组件：[MuDeptTreeSelect](../../../components/dept/Index.md)（`app/src/components/dept/Index.vue`，弹窗「上级部门」字段使用）
 - 接口声明：`app/src/api/dept.js`（模块前缀 `/system/dept`，经 `@http` 绑定为 `api.dept.*` 调用，方案见 docs/api.md）
 
 ## 页面结构
@@ -36,7 +36,7 @@ function openForm(row) {
 
 - 表单项：上级部门（required，MuDeptTreeSelect 部门树选择器，编辑时 `:exclude-id="form.deptId"` 排除自身及子部门）、部门名称（required + maxLength=30）、排序（required + integer）、状态（radio，新增默认正常）
 - `open(params)`：行数据经 `new DeptModel(row)` 规整（只保留表单字段并补默认值，新增默认状态正常、上级部门为空必选），再由 MuSmartForm `cloneDeep` 后作为表单状态
-- `:server="handleSubmit"`：有 `deptId` 调 `api.dept.save`，否则 `api.dept.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../components/smartui/smart-form/Index.md) 的 server 提交约定）
+- `:server="handleSubmit"`：有 `deptId` 调 `api.dept.save`，否则 `api.dept.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../../components/smartui/smart-form/Index.md) 的 server 提交约定）
 - 保存成功后弹窗自动提示并关闭并触发 `onRefresh`（即 getData）刷新列表；弹窗组件不声明 emits，`close` / `refresh` 监听器经 attrs 自动透传（close 由 MuSmartForm 抛出、refresh 由 mu-form-dialog 抛出）
 
 ## 数据逻辑

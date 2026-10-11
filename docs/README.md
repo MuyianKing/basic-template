@@ -18,13 +18,13 @@
 ## 页面（docs/views/）
 
 - [登录（/login）](./views/login/Index.md) — 对接 /login、/getInfo、/captchaImage 的登录页（账号 + 密码 + 验证码，token 存 pinia）
-- [上传测试（/upload-test）](./views/upload-test/Index.md) — 验证全局上传配置的测试页（mu-upload 经 App.vue customConfig.uploadFile 对接 /common/upload(s)，归一化 { id, name, path }）
-- [用户管理（/system/user）](./views/user/Index.md) — 对接 /system/user 接口的用户管理（左侧部门树可筛选 + 右侧分页列表 + 新增/修改/删除/重置密码）
-- [部门管理（/system/dept）](./views/dept/Index.md) — 对接 /system/dept 接口的部门管理（搜索 + 树形列表 + 新增/修改/删除）
-- [岗位管理（/system/post）](./views/post/Index.md) — 对接 /system/post 接口的岗位管理（搜索 + 分页列表 + 新增/修改/删除）
-- [角色管理（/system/role）](./views/role/Index.md) — 对接 /system/role 接口的角色管理（搜索 + 分页列表 + 新增/修改/删除 + 分配用户：取消/批量取消/批量添加授权 + 绑定菜单）
-- [菜单管理（/system/menu）](./views/menu/Index.md) — 对接 /system/menu 接口的菜单管理（搜索 + 树形懒加载列表 + 新增/修改/删除，表单项按目录/菜单/按钮类型条件显隐）
-- [字典管理（/system/dict）](./views/dict/Index.md) — 对接 /system/dict/type、/system/dict/data 接口的字典管理（左侧类型 + 右侧数据联动，均支持新增/修改/删除）
+- [首页（/home）](./views/home/Index.md) — 布局内默认首页（欢迎横幅 + 快捷入口 + 版本信息）
+- [用户管理（/system/user）](./views/system/user/Index.md) — 对接 /system/user 接口的用户管理（左侧部门树可筛选 + 右侧分页列表 + 新增/修改/删除/重置密码）
+- [部门管理（/system/dept）](./views/system/dept/Index.md) — 对接 /system/dept 接口的部门管理（搜索 + 树形列表 + 新增/修改/删除）
+- [岗位管理（/system/post）](./views/system/post/Index.md) — 对接 /system/post 接口的岗位管理（搜索 + 分页列表 + 新增/修改/删除）
+- [角色管理（/system/role）](./views/system/role/Index.md) — 对接 /system/role 接口的角色管理（搜索 + 分页列表 + 新增/修改/删除 + 分配用户：取消/批量取消/批量添加授权 + 绑定菜单）
+- [菜单管理（/system/menu）](./views/system/menu/Index.md) — 对接 /system/menu 接口的菜单管理（搜索 + 树形懒加载列表 + 新增/修改/删除，表单项按目录/菜单/按钮类型条件显隐）
+- [字典管理（/system/dict）](./views/system/dict/Index.md) — 对接 /system/dict/type、/system/dict/data 接口的字典管理（左侧类型 + 右侧数据联动，均支持新增/修改/删除）
 - [操作日志（/system/log/operlog）](./views/log/operlog/Index.md) — 对接 /monitor/operlog 接口的操作日志（搜索 + 分页列表 + 详情弹窗：基本信息/操作人员/请求信息/请求参数/返回参数）
 - [登录日志（/system/log/logininfor）](./views/log/logininfor/Index.md) — 对接 /monitor/logininfor 接口的登录日志（搜索 + 分页列表：登录地址/用户名/状态/登录时间，含浏览器与操作系统）
 - [个人中心（/user/profile）](./views/profile/Index.md) — 右上角头像下拉进入的个人中心（左侧个人信息+头像上传 + 右侧基本资料/修改密码双 Tab）

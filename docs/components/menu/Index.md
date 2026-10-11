@@ -27,7 +27,7 @@
 
 ## 使用示例
 
-见菜单管理页弹窗 `app/src/views/menu/components/EditDialog.vue`：
+见菜单管理页弹窗 `app/src/views/system/menu/components/EditDialog.vue`：
 
 ```vue
 <menu-tree-select v-model="menuForm.parentId" :exclude-id="menuForm.menuId" class="w-full" />

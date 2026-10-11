@@ -2,13 +2,13 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/role/Index.vue`
+- 源码：`app/src/views/system/role/Index.vue`
 - 路由：`/system/role`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system`）
 - 私有子组件：
-  - `app/src/views/role/components/EditDialog.vue`（经 `openDialog` 打开的新增/修改弹窗，内部用 useSmartForm）
-  - `app/src/views/role/components/AuthUserDialog.vue`（分配用户弹窗：已分配用户列表 + 取消/批量取消授权）
-  - `app/src/views/role/components/AddUserDialog.vue`（批量添加用户授权弹窗：未分配用户列表多选）
-  - `app/src/views/role/components/MenuAuthDialog.vue`（绑定菜单弹窗：菜单树勾选，保存调角色修改接口）
+  - `app/src/views/system/role/components/EditDialog.vue`（经 `openDialog` 打开的新增/修改弹窗，内部用 useSmartForm）
+  - `app/src/views/system/role/components/AuthUserDialog.vue`（分配用户弹窗：已分配用户列表 + 取消/批量取消授权）
+  - `app/src/views/system/role/components/AddUserDialog.vue`（批量添加用户授权弹窗：未分配用户列表多选）
+  - `app/src/views/system/role/components/MenuAuthDialog.vue`（绑定菜单弹窗：菜单树勾选，保存调角色修改接口）
 - 表单模型：`app/src/model/role.js`（RoleModel：字段规整与默认值，含 `menuCheckStrictly` 父子联动——后端「缺省即写 false」，角色保存必须显式携带该字段）
 - 菜单权限工具：`app/src/server/role.js`（`fillMenuAncestors` 按菜单树补齐祖先节点、`getRoleMenuIds` 取角色当前菜单权限含祖先，新增/修改角色与绑定菜单弹窗共用）
 - 字典与超管约定：`app/src/const/role.js`（`SUPER_ADMIN_ROLE_ID = 1`、`isSuperAdminRole(row)`，以 SysRole.admin 标记为准、兜底内置 roleId）
@@ -40,7 +40,7 @@ function openForm(row) {
 
 - 表单项：角色名称（required + maxLength=30）、权限字符（required + maxLength=100）、显示顺序（required + integer）、状态（radio，新增默认正常）
 - `open(params)`：行数据经 `new RoleModel(row)` 规整（只保留表单字段并补默认值，新增默认状态正常），再由 MuSmartForm `cloneDeep` 后作为表单状态
-- `:server="handleSubmit"`：**必须携带 menuIds**（后端 addRole/updateRole 按 menuIds 重建角色-菜单关联，缺省直接 500 报错）——新增传 `menuIds: []`；修改经 `getRoleMenuIds(roleId)` 取当前菜单权限（回显接口省略父节点，内部用 fillMenuAncestors 补齐祖先）后原样回传，获取失败时抛错中断（按空数组提交会清空菜单关联）；有 `roleId` 调 `api.role.save`，否则 `api.role.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../components/smartui/smart-form/Index.md) 的 server 提交约定）
+- `:server="handleSubmit"`：**必须携带 menuIds**（后端 addRole/updateRole 按 menuIds 重建角色-菜单关联，缺省直接 500 报错）——新增传 `menuIds: []`；修改经 `getRoleMenuIds(roleId)` 取当前菜单权限（回显接口省略父节点，内部用 fillMenuAncestors 补齐祖先）后原样回传，获取失败时抛错中断（按空数组提交会清空菜单关联）；有 `roleId` 调 `api.role.save`，否则 `api.role.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../../components/smartui/smart-form/Index.md) 的 server 提交约定）
 - 保存成功后弹窗自动提示并关闭并触发 `onRefresh`（即 getData）刷新列表；弹窗组件不声明 emits，`close` / `refresh` 监听器经 attrs 自动透传（close 由 MuSmartForm 抛出、refresh 由 mu-form-dialog 抛出）
 
 ## 绑定菜单弹窗

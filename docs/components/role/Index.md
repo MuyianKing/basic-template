@@ -16,10 +16,10 @@
 
 ## Props
 
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| modelValue | Number / String / Array | undefined | 选中的角色ID（v-model，`multiple` 时为数组） |
-| params | Object | {} | 附加查询参数，随每次远程请求透传给角色列表接口，如 `{ status: '0' }` 只查正常状态角色 |
+| 属性       | 类型                    | 默认值    | 说明                                                                                  |
+| ---------- | ----------------------- | --------- | ------------------------------------------------------------------------------------- |
+| modelValue | Number / String / Array | undefined | 选中的角色ID（v-model，`multiple` 时为数组）                                          |
+| params     | Object                  | {}        | 附加查询参数，随每次远程请求透传给角色列表接口，如 `{ status: '0' }` 只查正常状态角色 |
 
 ## 用法示例
 
@@ -30,13 +30,13 @@ import RoleSelect from '@comp/role/Index.vue'
 
 <template>
   <!-- 单选，回显需在列表首页内 -->
-  <role-select v-model="form.roleId" class="w-full" />
+  <RoleSelect v-model="form.roleId" class="w-full" />
 
   <!-- 多选（透传 el-select 的 multiple） -->
-  <role-select v-model="form.roleIds" multiple class="w-full" />
+  <RoleSelect v-model="form.roleIds" multiple class="w-full" />
 
   <!-- 查询区：追加「全部」选项（value 为空串） -->
-  <role-select v-model="query.roleId" all clearable class="w-full" />
+  <RoleSelect v-model="query.roleId" all clearable class="w-full" />
 </template>
 ```
 

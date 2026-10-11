@@ -1,5 +1,4 @@
 import Layout from '@layout/Main.vue'
-import FluentArrowUpload32Filled from '~icons/fluent/arrow-upload-32-filled'
 import FluentBook32Filled from '~icons/fluent/book-32-filled'
 import FluentBriefcase32Filled from '~icons/fluent/briefcase-32-filled'
 import FluentBuilding32Filled from '~icons/fluent/building-32-filled'
@@ -49,15 +48,6 @@ export default [
           hidden: true,
         },
       },
-      {
-        // 上传测试：验证全局上传配置（App.vue customConfig.uploadFile → /common/upload(s)）
-        path: 'upload-test',
-        component: () => import('@views/upload-test/Index.vue'),
-        meta: {
-          title: '上传测试',
-          icon: FluentArrowUpload32Filled,
-        },
-      },
     ],
   },
   {
@@ -83,7 +73,7 @@ export const registryRoutes = [
     children: [
       {
         path: 'user',
-        component: () => import('@views/user/Index.vue'),
+        component: () => import('@views/system/user/Index.vue'),
         meta: {
           title: '用户管理',
           icon: FluentPerson32Filled,
@@ -91,7 +81,7 @@ export const registryRoutes = [
       },
       {
         path: 'dept',
-        component: () => import('@views/dept/Index.vue'),
+        component: () => import('@views/system/dept/Index.vue'),
         meta: {
           title: '部门管理',
           icon: FluentBuilding32Filled,
@@ -99,7 +89,7 @@ export const registryRoutes = [
       },
       {
         path: 'post',
-        component: () => import('@views/post/Index.vue'),
+        component: () => import('@views/system/post/Index.vue'),
         meta: {
           title: '岗位管理',
           icon: FluentBriefcase32Filled,
@@ -107,7 +97,7 @@ export const registryRoutes = [
       },
       {
         path: 'role',
-        component: () => import('@views/role/Index.vue'),
+        component: () => import('@views/system/role/Index.vue'),
         meta: {
           title: '角色管理',
           icon: FluentPeopleTeam20Filled,
@@ -115,7 +105,7 @@ export const registryRoutes = [
       },
       {
         path: 'menu',
-        component: () => import('@views/menu/Index.vue'),
+        component: () => import('@views/system/menu/Index.vue'),
         meta: {
           title: '菜单管理',
           icon: FluentTextBulletListSquare32Filled,
@@ -123,7 +113,7 @@ export const registryRoutes = [
       },
       {
         path: 'dict',
-        component: () => import('@views/dict/Index.vue'),
+        component: () => import('@views/system/dict/Index.vue'),
         meta: {
           title: '字典管理',
           icon: FluentBook32Filled,
@@ -138,7 +128,7 @@ export const registryRoutes = [
         children: [
           {
             path: 'operlog',
-            component: () => import('@views/log/operlog/Index.vue'),
+            component: () => import('@views/system/log/operlog/Index.vue'),
             meta: {
               title: '操作日志',
               icon: FluentClipboardTextEdit32Filled,
@@ -146,7 +136,7 @@ export const registryRoutes = [
           },
           {
             path: 'logininfor',
-            component: () => import('@views/log/logininfor/Index.vue'),
+            component: () => import('@views/system/log/logininfor/Index.vue'),
             meta: {
               title: '登录日志',
               icon: FluentPersonArrowRight24Filled,

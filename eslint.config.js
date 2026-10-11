@@ -4,7 +4,7 @@ import eslint from '@muyianking/config/eslint.config.js'
 
 export default antfu({
   formatters: true,
-  ignores: ['**/public/**'],
+  ignores: ['**/public/**', '**/*.md'],
 }, {
   rules: {
     ...eslint,

@@ -3,7 +3,7 @@
 - 源码：`app/src/components/smartui/smart-form/Index.vue`（组件）+ `index.js`（useSmartForm / openDialog / MuDialogHost）
 - 引入：`import { useSmartForm } from '@comp/smartui'`；`MuSmartForm` 也可直接用（`<mu-smart-form>`）
 
-配置化表单弹窗，基于 `@muyianking/ui` 的 `mu-form-dialog`（自带校验、提交按钮）+ `mu-form-item` 封装。推荐用法是 `useSmartForm` 组合式函数（示例见 `app/src/views/dept/components/EditDialog.vue`：弹窗组件内部用 useSmartForm，页面经 openDialog 打开）。
+配置化表单弹窗，基于 `@muyianking/ui` 的 `mu-form-dialog`（自带校验、提交按钮）+ `mu-form-item` 封装。推荐用法是 `useSmartForm` 组合式函数（示例见 `app/src/views/system/dept/components/EditDialog.vue`：弹窗组件内部用 useSmartForm，页面经 openDialog 打开）。
 
 ## useSmartForm（推荐用法）
 

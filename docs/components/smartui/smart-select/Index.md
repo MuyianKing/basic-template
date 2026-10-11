@@ -7,11 +7,11 @@
 
 ## Props
 
-| 名称    | 类型    | 默认值  | 说明                                                                       |
-| ------- | ------- | ------- | -------------------------------------------------------------------------- |
-| type    | String  | select  | 渲染类型：`select` 下拉单选、`radio` 单选按钮组、`checkbox` 多选按钮组      |
-| options | Array   | []      | 选项列表 `{ label, value }`；type 为 select 时支持 `children` 分组选项      |
-| v-model | any     | —       | 数据类型随 type：`select` / `radio` 为标量，`checkbox` 为数组（见下方约定） |
+| 名称    | 类型   | 默认值 | 说明                                                                        |
+| ------- | ------ | ------ | --------------------------------------------------------------------------- |
+| type    | String | select | 渲染类型：`select` 下拉单选、`radio` 单选按钮组、`checkbox` 多选按钮组      |
+| options | Array  | []     | 选项列表 `{ label, value }`；type 为 select 时支持 `children` 分组选项      |
+| v-model | any    | —      | 数据类型随 type：`select` / `radio` 为标量，`checkbox` 为数组（见下方约定） |
 
 ## 属性透传
 

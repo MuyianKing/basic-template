@@ -7,18 +7,18 @@
 
 ## Props
 
-| 名称 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| loading | Boolean | false | 请求加载状态，表格区域显示 loading |
-| pageQuery | Object | {} | useList 返回的 `page_query`（{page, limit}） |
-| tableData | Object | {} | useList 返回的 `table_data`（{data, count}） |
-| noAdd | Boolean | false | 隐藏添加按钮 |
-| noSearch | Boolean | false | 隐藏搜索按钮 |
-| noSearchArea | Boolean | false | 隐藏整个搜索区域 |
-| fixedButton | Boolean | false | 按钮区固定（透传 mu-search-page） |
-| noPage | Boolean | false | 不渲染分页 |
-| pageConfig | Object | null | 分页配置，`{ sizes: true }` 开启每页条数选择 |
-| advancedText | String | 高级搜索 | 高级搜索按钮文案，配合 #advanced 插槽 |
+| 名称         | 类型    | 默认值   | 说明                                         |
+| ------------ | ------- | -------- | -------------------------------------------- |
+| loading      | Boolean | false    | 请求加载状态，表格区域显示 loading           |
+| pageQuery    | Object  | {}       | useList 返回的 `page_query`（{page, limit}） |
+| tableData    | Object  | {}       | useList 返回的 `table_data`（{data, count}） |
+| noAdd        | Boolean | false    | 隐藏添加按钮                                 |
+| noSearch     | Boolean | false    | 隐藏搜索按钮                                 |
+| noSearchArea | Boolean | false    | 隐藏整个搜索区域                             |
+| fixedButton  | Boolean | false    | 按钮区固定（透传 mu-search-page）            |
+| noPage       | Boolean | false    | 不渲染分页                                   |
+| pageConfig   | Object  | null     | 分页配置，`{ sizes: true }` 开启每页条数选择 |
+| advancedText | String  | 高级搜索 | 高级搜索按钮文案，配合 #advanced 插槽        |
 
 ## 插槽
 
@@ -30,20 +30,29 @@
 
 ## 事件
 
-| 名称 | 说明 |
-| --- | --- |
-| search | 点击搜索按钮 |
-| add | 点击添加按钮 |
-| updatePage | 页码变化，参数为新页码 |
+| 名称       | 说明                       |
+| ---------- | -------------------------- |
+| search     | 点击搜索按钮               |
+| add        | 点击添加按钮               |
+| updatePage | 页码变化，参数为新页码     |
 | updateSize | 每页条数变化，参数为新条数 |
-| getData | 分页变化（页码或条数） |
+| getData    | 分页变化（页码或条数）     |
 
 ## 页面接线方式
 
 useList 默认 `autoUpdate: true`（query / page_query 变化自动请求），因此分页事件只需回写 `page_query`：
 
 ```html
-<mu-smart-list :loading="loading" :page-query="page_query" :table-data="table_data" fixed-button @search="search" @add="openForm" @update-page="page_query.page = $event" @update-size="page_query.limit = $event">
+<mu-smart-list
+  :loading="loading"
+  :page-query="page_query"
+  :table-data="table_data"
+  fixed-button
+  @search="search"
+  @add="openForm"
+  @update-page="page_query.page = $event"
+  @update-size="page_query.limit = $event"
+>
   <template #search>...</template>
   <template #table>...</template>
 </mu-smart-list>

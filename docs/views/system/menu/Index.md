@@ -2,11 +2,11 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/menu/Index.vue`
+- 源码：`app/src/views/system/menu/Index.vue`
 - 路由：`/system/menu`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system`）
-- 私有子组件：`app/src/views/menu/components/EditDialog.vue`（经 `openDialog` 打开的新增/修改弹窗，内部用 useSmartForm）
+- 私有子组件：`app/src/views/system/menu/components/EditDialog.vue`（经 `openDialog` 打开的新增/修改弹窗，内部用 useSmartForm）
 - 表单模型：`app/src/model/menu.js`（MenuModel：字段规整与默认值）
-- 公共业务组件：[MuMenuTreeSelect](../../components/menu/Index.md)（`app/src/components/menu/Index.vue`，弹窗「上级菜单」字段使用）
+- 公共业务组件：[MuMenuTreeSelect](../../../components/menu/Index.md)（`app/src/components/menu/Index.vue`，弹窗「上级菜单」字段使用）
 - 接口声明：`app/src/api/menu.js`（模块前缀 `/system/menu`，经 `@http` 绑定为 `api.menu.*` 调用，方案见 docs/api.md）
 - 字典：`app/src/const/menu.js`（MENU_TYPE_OPTIONS 菜单类型、FRAME_OPTIONS 是否外链、CACHE_OPTIONS 是否缓存；状态复用 `@const/common` 的 STATUS_OPTIONS）
 
@@ -50,7 +50,7 @@ function openForm(row) {
   - 按需求不含「菜单图标」与「路由组件」字段
 - 上级菜单插槽：`#parentId="{ form: menuForm }"`（重命名避免遮蔽 setup 中的 form ref），`:exclude-id="menuForm.menuId"` 编辑时排除自身及子菜单
 - `open(params)`：行数据经 `new MenuModel(row)` 规整（只保留表单字段并补默认值：非外链 isFrame '1'、缓存 isCache '0'、正常 status '0'；parentId / orderNum 用 `??` 保住 0 值），再由 MuSmartForm `cloneDeep` 后作为表单状态
-- `:server="handleSubmit"`：有 `menuId` 调 `api.menu.save`，否则 `api.menu.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../smartui/smart-form/Index.md) 的 server 提交约定）
+- `:server="handleSubmit"`：有 `menuId` 调 `api.menu.save`，否则 `api.menu.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../../components/smartui/smart-form/Index.md) 的 server 提交约定）
 - 保存成功后弹窗自动提示并关闭并触发 `onRefresh`（即 getData）刷新列表；弹窗组件不声明 emits，`close` / `refresh` 监听器经 attrs 自动透传
 
 ## 接口声明（app/src/api/menu.js）

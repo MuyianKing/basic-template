@@ -2,9 +2,9 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/user/Index.vue`
+- 源码：`app/src/views/system/user/Index.vue`
 - 路由：`/system/user`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system`）
-- 私有子组件：`app/src/views/user/components/EditDialog.vue`（新增/修改弹窗）、`app/src/views/user/components/ResetPwdDialog.vue`（重置密码弹窗）、`app/src/views/user/components/AssignRoleDialog.vue`（分配角色弹窗），均经 `openDialog` 打开
+- 私有子组件：`app/src/views/system/user/components/EditDialog.vue`（新增/修改弹窗）、`app/src/views/system/user/components/ResetPwdDialog.vue`（重置密码弹窗）、`app/src/views/system/user/components/AssignRoleDialog.vue`（分配角色弹窗），均经 `openDialog` 打开
 - 表单模型：`app/src/model/user.js`（UserModel：字段规整与默认值）
 - 接口声明：`app/src/api/user.js`（模块前缀 `/system/user`，经 `@http` 绑定为 `api.user.*` 调用，方案见 docs/api.md）
 - 部门树数据：`app/src/server/dept.js` 的 `getDeptList`（与部门管理、MuDeptTreeSelect 共用组树逻辑）
@@ -35,7 +35,7 @@
 
 - 表单项：所属部门（MuDeptTreeSelect，required）、用户名称（required + maxLength=30）、用户昵称（required + maxLength=30）、手机号（phone 校验，选填）、状态（radio，新增默认正常）
 - 新增未填密码时提交默认密码 `123456`（`handleSubmit` 内补 `model.password`）
-- `:server="handleSubmit"`：有 `userId` 调 `api.user.save`，否则 `api.user.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../components/smartui/smart-form/Index.md) 的 server 提交约定）
+- `:server="handleSubmit"`：有 `userId` 调 `api.user.save`，否则 `api.user.add`；结果为 falsy 时抛错（http 失败返回 null，见 [MuSmartForm](../../../components/smartui/smart-form/Index.md) 的 server 提交约定）
 - 保存成功后弹窗自动提示关闭并触发 `onRefresh`（即 getData）刷新列表；弹窗组件不声明 emits，监听器经 attrs 自动透传
 
 ## 重置密码弹窗

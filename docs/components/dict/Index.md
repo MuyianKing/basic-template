@@ -46,4 +46,4 @@ import DictSelect from '@comp/dict/Index.vue'
 ## 数据逻辑
 
 - 接口为 `GET /system/dict/data/type/{dictType}`（AjaxResult{data: SysDictData[]}），声明在 `app/src/api/dictData.js`（`api.dictData.listByType({ dictType })`），路径与参数以 `docs/api-docs.json` 为准
-- 字典管理页面见 `app/src/views/dict/`（文档 `docs/views/dict/Index.md`）
+- 字典管理页面见 `app/src/views/system/dict/`（文档 `docs/views/system/dict/Index.md`）

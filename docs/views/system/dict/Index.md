@@ -2,11 +2,11 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/dict/Index.vue`
+- 源码：`app/src/views/system/dict/Index.vue`
 - 路由：`/system/dict`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system`）
 - 私有子组件：
-  - `app/src/views/dict/components/TypeEditDialog.vue`（MuDictTypeEditDialog，字典类型新增/修改弹窗）
-  - `app/src/views/dict/components/DataEditDialog.vue`（MuDictDataEditDialog，字典数据新增/修改弹窗）
+  - `app/src/views/system/dict/components/TypeEditDialog.vue`（MuDictTypeEditDialog，字典类型新增/修改弹窗）
+  - `app/src/views/system/dict/components/DataEditDialog.vue`（MuDictDataEditDialog，字典数据新增/修改弹窗）
 - 表单模型：`app/src/model/dictType.js`、`app/src/model/dictData.js`（字段规整与默认值）
 - 接口声明：`app/src/api/dictType.js`（前缀 `/system/dict/type`）、`app/src/api/dictData.js`（前缀 `/system/dict/data`），经 `@http` 绑定为 `api.dictType.*` / `api.dictData.*` 调用，方案见 docs/api.md
 

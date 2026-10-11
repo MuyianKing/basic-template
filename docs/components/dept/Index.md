@@ -16,14 +16,15 @@
 
 ## Props
 
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| modelValue | Number / String | undefined | 选中的部门ID（v-model） |
-| excludeId | Number / String | null | 需要排除的部门ID：编辑时传自身 deptId，候选树改调 `/system/dept/list/exclude/{deptId}` 排除自己及子部门，避免把自己或子孙选为上级 |
+| 属性       | 类型            | 默认值    | 说明                                                                                                                              |
+| ---------- | --------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| modelValue | Number / String | undefined | 选中的部门ID（v-model）                                                                                                           |
+| excludeId  | Number / String | null      | 需要排除的部门ID：编辑时传自身 deptId，候选树改调 `/system/dept/list/exclude/{deptId}` 排除自己及子部门，避免把自己或子孙选为上级 |
 
-## 页面用法（app/src/views/dept/components/EditDialog.vue）
+## 页面用法（app/src/views/system/dept/components/EditDialog.vue）
 
 ```vue
+<!-- eslint-disable vue/valid-attribute-name -- 文档示例 -->
 <template #parentId="{ form }">
   <dept-tree-select v-model="form.parentId" :exclude-id="form.deptId" class="w-full" />
 </template>

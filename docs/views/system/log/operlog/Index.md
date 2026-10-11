@@ -2,9 +2,9 @@
 
 ## 基本信息
 
-- 源码：`app/src/views/log/operlog/Index.vue`
+- 源码：`app/src/views/system/log/operlog/Index.vue`
 - 路由：`/system/log/operlog`（`app/src/router/menu/index.js` 中 admin 路由的 children，父级为 `system/log` 二级分组「日志管理」）
-- 私有子组件：`app/src/views/log/operlog/components/DetailDialog.vue`（经 `openDialog` 打开的详情弹窗，仅查看）
+- 私有子组件：`app/src/views/system/log/operlog/components/DetailDialog.vue`（经 `openDialog` 打开的详情弹窗，仅查看）
 - 字典：`app/src/const/log.js`（`OPER_TYPE_OPTIONS` 操作类型 / `OPER_STATUS_OPTIONS` 执行状态）
 - 接口声明：`app/src/api/operlog.js`（模块前缀 `/monitor/operlog`，经 `@http` 绑定为 `api.operlog.*` 调用，方案见 docs/api.md）
 
