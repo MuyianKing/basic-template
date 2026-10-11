@@ -27,9 +27,11 @@ const alias_path = [
   ['@layout', './src/layout/'],
   ['@directions', './src/directions/'],
   ['@utils', './src/utils/'],
+  ['@const', './src/const/'],
   // 单文件别名
   ['@app', './src/utils/app'],
   ['@http', './src/utils/request'],
+
 ]
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))

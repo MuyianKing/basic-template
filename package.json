@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@multiavatar/multiavatar": "^1.0.7",
-    "@muyianking/hooks": "^0.0.5",
-    "@muyianking/ui": "^0.0.2",
+    "@muyianking/hooks": "^0.0.6",
+    "@muyianking/ui": "^0.0.3",
     "@muyianking/utils": "^0.2.1",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.16.1",

@@ -50,7 +50,7 @@ function getMinWidth(column) {
 
     <el-table-column v-if="$slots.operation" fixed="right" width="80px" :align="operationProps.align || 'center'" v-bind="operationProps">
       <template #default="scope">
-        <div class="flex smart-table-operation-wrapper">
+        <div class="flex smart-table-operation-wrapper justify-center">
           <slot name="operation" v-bind="scope" />
         </div>
       </template>

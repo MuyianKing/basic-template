@@ -11,6 +11,9 @@ class RespError extends Error {
   }
 }
 
+// 成功响应码：若依 200 与项目历史约定 1；后端成功时返回字符串 '200'，失败返回数字 500/401，统一按数值比较
+const SUCCESS_CODES = [200, 1]
+
 /**
  * 解析响应数据，处理Blob类型转JSON的情况
  */
@@ -61,7 +64,8 @@ export class Http {
 
       const user = useUserStore()
       if (isTruth(user.token)) {
-        config.headers.token = user.token
+        // 若依后端要求 Authorization: Bearer <token>（见 docs/api-docs.json securitySchemes）
+        config.headers.Authorization = `Bearer ${user.token}`
       }
       return config
     })
@@ -74,16 +78,17 @@ export class Http {
         return this.interceptors.response.success(data)
       }
 
-      if (data.code !== undefined && data.code !== '1') {
-        if (data.code === '-2') {
+      const errno = Number(data.code)
+      if (data.code !== undefined && !SUCCESS_CODES.includes(errno)) {
+        if (errno === -2 || errno === 401) {
           window.location.href = '#/login'
           return Promise.reject(new RespError({
-            errno: data.code,
+            errno,
             error: '登录信息失效',
           }))
         } else {
           return Promise.reject(new RespError({
-            errno: data.code,
+            errno,
             error: data.msg,
           }))
         }
@@ -109,7 +114,7 @@ export class Http {
 
         resp_error = new RespError({
           errno: data.status || data.code,
-          error: data.error,
+          error: data.error || data.msg,
         })
       } else {
         resp_error = new RespError({
@@ -142,7 +147,6 @@ export class Http {
     return this.request({
       method: 'post',
       url,
-      withCredentials: true,
       data,
       ..._options,
       headers,
@@ -155,7 +159,6 @@ export class Http {
     return this.request({
       method: 'get',
       url,
-      withCredentials: true,
       params,
       ..._options,
     }, noError)

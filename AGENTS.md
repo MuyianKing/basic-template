@@ -46,7 +46,7 @@
 - 单应用仓库：app/ 是唯一的 Vue 3 后台管理应用（Rsbuild 构建），组件库通过 npm 依赖引入，仓库内不再维护 packages/ 组件源码。
 - 技术栈：JavaScript（无 TypeScript）、Vue 3.5 SFC + JSX、vue-router 5、pinia 3、element-plus 2.14、@muyianking/ui（Mu 组件库）、Tailwind CSS 3、Node 22.22.0 / pnpm 10.32.1（volta 锁定）。
 - 运行时依赖统一声明在根 package.json；app/package.json 仅保留 tailwindcss。
-- @muyianking/hooks 0.0.5 导出：useAutoHeightAnimation（注意函数名与文件名 useAutoHeightAnimal 不同）、useList（列表页 headless 逻辑：query/page_query/getData/search/updateOne/table_data/loading）、useListRequest（分页查询：getList）、usePageRequest（挂载即查的页面查询）、useRequest（不返回数据的普通请求）；引入路径为 '@muyianking/hooks' 主入口。
+- @muyianking/hooks 0.0.6 导出：useAutoHeightAnimation（注意函数名与文件名 useAutoHeightAnimal 不同）、useList（列表页 headless 逻辑：query/page_query/getData/search/updateOne/table_data/loading；query 自 0.0.6 起为 ref，脚本内读写需 .value，模板中自动解包）、useListRequest（分页查询：getList）、usePageRequest（挂载即查的页面查询）、useRequest（不返回数据的普通请求）；引入路径为 '@muyianking/hooks' 主入口。
 - 禁止引入：TypeScript、Prettier、Vuex、axios 之外的请求库、element-plus 与 @muyianking/ui 之外的组件库、Tailwind 之外的原子化 CSS 方案、测试框架。
 - 项目无 CI 配置；husky 仅在 commit-msg 阶段执行 commitlint。
 
@@ -54,7 +54,7 @@
 
 - 页面放 app/src/views/，页面私有子组件放同页面 components/ 子目录；布局放 app/src/layout/。
 - 业务聚合组件（smart-table / smart-form / smart-query）在 app/src/components/smartui/，随应用源码维护，经 @comp/smartui 引用。
-- API 模块放 app/src/server/ 按业务域拆文件；store 放 app/src/pinia/modules/；工具放 app/src/utils/；路由与菜单在 app/src/router/。
+- 接口声明放 app/src/api/，按业务域拆模块文件并在 app/src/api/index.js 的 apis.urls 登记；含可复用业务逻辑的请求封装放 app/src/server/；store 放 app/src/pinia/modules/；工具放 app/src/utils/；路由与菜单在 app/src/router/。
 - 全局样式在 app/src/assets/style/；环境变量文件为 app/.env*。
 
 ## 3. 文档同步
@@ -62,7 +62,8 @@
 - docs/ 是页面与组件的文档目录，按目录划分：docs/components/ 存放组件文档（对应 app/src/components/ 下的组件），docs/views/ 存放页面文档（对应 app/src/views/ 下的页面），文档子目录结构与源码目录保持一致。
 - docs/README.md 是文档索引；新增、删除或移动页面与组件时，同步登记或调整索引条目。
 - 所有业务改动和新需求改完后，必须同步更新受影响页面与组件的文档；新增页面或组件时同步创建文档并登记索引，文档未同步视为改动未完成。
-- 后端接口文档为 docs/api-docs.json（OpenAPI 3.1 格式，若依管理系统接口，paths 下按路径列出全部接口及请求/响应 schema）；对接后端或新增 app/src/server/ 接口时以该文件为准，后端接口变更时同步更新。
+- 后端接口文档为 docs/api-docs.json（OpenAPI 3.1 格式，若依管理系统接口，paths 下按路径列出全部接口及请求/响应 schema）；对接后端或新增接口时以该文件为准，后端接口变更时同步更新。
+- API 声明与调用方案文档为 docs/api.md；新增或调整 app/src/api/ 接口声明时遵循该方案，方案本身变更时同步更新。
 
 ## 4. 编码规范
 
@@ -84,9 +85,12 @@
 ## 6. 请求 / 状态 / 配置
 
 - 请求统一走 @http 别名（app/src/utils/request.js，基于 axios 的 Http class 实例 http）；分页结果用 withPage 规整为 { count, data }；接口路径、参数与响应结构以 docs/api-docs.json 接口文档为准。
+- 接口采用声明式方案（详见 docs/api.md）：app/src/api/*.js 只声明 [method, path]（唯一接口登记处），api/index.js 聚合为描述符树并经 @http 的 bindApi 绑定为函数树，业务代码 `import { api } from '@http'` 直接调用（GET 首参为 query，POST 首参为 body）；新增接口不写 server 转发函数，仅含可复用业务逻辑（如 FormData 组装）时才在 app/src/server/ 写封装。
+- 区分两个 api：`import api from '@api'` 是描述符树（叶子 { method, url }），仅用于取原生 URL（如文件上传自定义 axios 配置）；`import { api } from '@http'` 是可调用函数树，日常业务调用用它。
+- app/src/api/index.js 必须保持纯数据（不 import @http）：api-types 生成器在 node 子进程中 import 它，浏览器运行时依赖会导致生成器崩溃；根目录 api.d.ts 为生成文件，禁止手改。
 - store 使用 pinia，持久化由 pinia-plugin-persistedstate 统一配置（key 自动大写加 _STORAGE 后缀），不在组件内自行读写 localStorage。
 - 环境变量使用 VITE_ 前缀，定义在 app/.env* 文件；业务代码统一从 @app 别名（app/src/utils/app.js）取值，不直接读 import.meta.env。
-- 路由为 hash 模式，全部为静态路由，定义在 app/src/router/menu/index.js；左侧菜单渲染 name 为 admin 的路由的 children，新增页面在该 children 中添加。
+- 路由为 hash 模式，采用动态路由方案（详见 docs/router.md）：静态壳（login / admin 布局壳 + home / 403 / 404）直接注册在 app/src/router/menu/index.js 默认导出；业务路由由 getRouters 下发的后端菜单树与同文件命名导出的 registryRoutes 配置清单按完整路径合并（app/src/router/dynamic.js），守卫内 addRoute 到 admin 下，本地清单没有的节点整枝剪掉。新增业务页面需两处同步：views/ 建页面 + registryRoutes 加节点（path/component/icon，path 与后端菜单「路由地址」逐段一致），并在后端菜单管理录入相同路径。
 
 ## 7. Agent 操作与验证
 

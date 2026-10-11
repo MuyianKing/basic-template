@@ -1,6 +1,7 @@
 import { WEB_NAME } from '@app'
 import NProgress from 'nprogress'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { loadAdminRoutes } from './dynamic'
 import routes from './menu/index'
 import 'nprogress/nprogress.css'
 
@@ -24,29 +25,34 @@ router.beforeEach(async (to) => {
   const title = useTitle()
   title.value = `${WEB_NAME} - ${to.meta.title || ''}`
 
-  // const userStore = useUserStore()
+  const userStore = useUserStore()
 
-  // if (to.path === '/login' || to.path === '/register' || to.path === '/forbidden') {
-  //   // 跳到不需要拦截的页面
-  //   return true
-  // }
+  if (to.path === '/login' || to.path === '/register' || to.path === '/forbidden') {
+    // 跳到不需要拦截的页面
+    return true
+  }
 
-  // if (!userStore.token) {
-  //   // 跳转到其他界面如果没有登录信息，跳转到登录界面
-  //   return '/login'
-  // }
+  if (!userStore.token) {
+    // 跳转到其他界面如果没有登录信息，跳转到登录界面
+    return '/login'
+  }
 
-  // if (canJump(to)) {
-  //   return true
-  // }
+  const routeStore = useRouteStore()
+  if (!routeStore.loaded) {
+    // 动态路由未加载：合并后端菜单与本地配置注册到 admin 下，再按新注册的路由重放本次跳转
+    const adminRoutes = await loadAdminRoutes()
+    if (!adminRoutes) {
+      // getRouters 拉取失败（登录信息失效等）：http 已统一提示，清登录态回登录页重新认证
+      userStore.clearUser()
+      return '/login'
+    }
+    adminRoutes.forEach(route => router.addRoute('admin', route))
+    routeStore.setMenus(adminRoutes)
+    return { ...to, replace: true }
+  }
 
-  // return '/forbidden'
+  return true
 })
-
-// // 根据资源判断路由是否可以跳转
-// function canJump() {
-//   return true
-// }
 
 router.afterEach(() => {
   NProgress.done()

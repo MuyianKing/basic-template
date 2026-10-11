@@ -39,3 +39,6 @@ stats.html
 auto-imports.d.ts
 components.d.ts
 vite.config.js.timestamp*
+
+# 本地临时文件（验证码/token 调试残留，禁止提交）
+.tmp-*

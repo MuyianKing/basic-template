@@ -1,4 +1,5 @@
 <script setup>
+import { MuDialogHost } from '@comp/smartui'
 import ExitFull from '@layout/ExitFull.vue'
 import HeaderComp from '@layout/Header.vue'
 import Sidebar from '@layout/side-bar/Index.vue'
@@ -36,8 +37,6 @@ function formatComponentInstance(component, route) {
   if (!component) {
     return
   }
-
-  console.log(component)
 
   const component_name = component.type.name
   /**
@@ -119,6 +118,9 @@ const no_parent = ref(window.top === window.self)
       </div>
       <iframe v-for="item in iframe_url_list" v-show="item.key === _route.path.split('__')[1]" :key="item.key" class="content-box iframe-body" :src="item.url" />
     </div>
+
+    <!-- 队列式弹窗宿主：openDialog 压入的弹窗在此渲染，须挂在 router-view 之外以跨页面存活 -->
+    <mu-dialog-host />
   </div>
 </template>
 

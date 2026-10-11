@@ -34,16 +34,22 @@ const config = computed(() => {
 })
 
 function handleUpdate(prop, value) {
+  console.log(prop, value)
+
   emit('update:modelValue', { ...props.modelValue, [prop]: value })
 }
 </script>
 
 <template>
   <template v-for="item in config" :key="item.prop">
-    <mu-form-item class="smart-query-form-item" :label="item.label">
+    <mu-form-item class="smart-query-form-item ml-2" :label="item.label">
       <slot :name="item.prop">
         <component :is="item.comp" :model-value="modelValue[item.prop]" v-bind="item.props" @update:model-value="value => handleUpdate(item.prop, value)" />
       </slot>
     </mu-form-item>
   </template>
 </template>
+
+<style scoped>
+
+</style>

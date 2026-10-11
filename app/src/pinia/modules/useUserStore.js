@@ -4,6 +4,8 @@ export default defineStore('user', {
   state: () => ({
     id: '',
     username: '',
+    nickname: '',
+    avatar: '',
     token: '',
   }),
   actions: {

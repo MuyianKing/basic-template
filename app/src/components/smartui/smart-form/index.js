@@ -1,4 +1,8 @@
-import SmartForm from './Index.vue'
+import { guid } from '@muyianking/utils'
+import { defineComponent, h, ref, shallowReactive } from 'vue'
+import SmartFormComp from './Index.vue'
+
+const dialogs = shallowReactive([])
 
 /**
  * 打开弹窗组件
@@ -13,47 +17,74 @@ export function openDialog(dialogComp, options = {}) {
     params,
   } = options
 
-  const container = document.createElement('div')
-  document.body.appendChild(container)
-
-  let instance = null
-
-  const app = createApp(
-    defineComponent({
-      setup() {
-        const dialogRef = ref()
-
-        function unmount() {
-          setTimeout(() => {
-            app.unmount()
-            container.remove()
-          }, 300)
-        }
-
-        function handleClose() {
-          unmount()
-        }
-
-        instance = {
-          getDialog: () => dialogRef.value,
-        }
-
-        return () => h(dialogComp, {
-          ref: dialogRef,
-          ...props,
-          onClose: handleClose,
-        })
-      },
-    }),
-  )
-
-  app.mount(container)
-
-  requestAnimationFrame(() => {
-    const dialog = instance?.getDialog()
-    dialog?.open?.(params)
+  dialogs.push({
+    id: guid(),
+    component: dialogComp,
+    props,
+    params,
+    opened: false,
   })
 }
 
-export const MuSmartForm = SmartForm
+export const MuDialogHost = defineComponent({
+  name: 'MuDialogHost',
+  setup() {
+    function handleRef(dialog, instance) {
+      if (!instance || dialog.opened) {
+        return
+      }
+
+      dialog.opened = true
+      requestAnimationFrame(() => instance.open?.(dialog.params))
+    }
+
+    function handleClose(dialog) {
+      setTimeout(() => {
+        const index = dialogs.indexOf(dialog)
+        if (index !== -1) {
+          dialogs.splice(index, 1)
+        }
+      }, 300)
+    }
+
+    return () => dialogs.map(dialog => h(dialog.component, {
+      key: dialog.id,
+      ...dialog.props,
+      ref: instance => handleRef(dialog, instance),
+      onClose: () => handleClose(dialog),
+    }))
+  },
+})
+
+export function useSmartForm({ Model } = {}) {
+  const form = ref({})
+  const smartFormRef = ref()
+
+  function open(model) {
+    if (Model) {
+      model = new Model(model)
+    }
+    smartFormRef.value?.open?.(model)
+  }
+
+  const SmartForm = defineComponent({
+    name: 'SmartForm',
+    inheritAttrs: false,
+    setup(_, { attrs, slots }) {
+      return () => h(SmartFormComp, {
+        ref: smartFormRef,
+        formRef: form,
+        ...attrs,
+      }, slots)
+    },
+  })
+
+  return {
+    form,
+    SmartForm,
+    open,
+  }
+}
+
+export const MuSmartForm = SmartFormComp
 export default MuSmartForm

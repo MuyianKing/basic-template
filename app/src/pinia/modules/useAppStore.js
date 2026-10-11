@@ -18,7 +18,7 @@ export default defineStore('appinfo', {
     // 页面是否全屏
     full_page: false,
     app_name: '系统名称',
-    theme: 'dark',
+    theme: 'light',
   }),
   actions: {
     initData(data) {

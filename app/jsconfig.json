@@ -48,6 +48,9 @@
       "@utils/*": [
         "./src/utils/*"
       ],
+      "@const/*": [
+        "./src/const/*"
+      ],
       "@app": [
         "./src/utils/app"
       ],

@@ -1,6 +1,13 @@
 /* 继承element-plus的主题颜色，主要是一些常用的 */
 :root {
   --el-color-primary: #4165d7;
+  /* element-plus 构建产物中的 light/dark 派生色按默认主题色硬编码，覆盖主色后需同步重算 */
+  --el-color-primary-light-3: color-mix(in srgb, var(--el-color-primary) 70%, #fff);
+  --el-color-primary-light-5: color-mix(in srgb, var(--el-color-primary) 50%, #fff);
+  --el-color-primary-light-7: color-mix(in srgb, var(--el-color-primary) 30%, #fff);
+  --el-color-primary-light-8: color-mix(in srgb, var(--el-color-primary) 20%, #fff);
+  --el-color-primary-light-9: color-mix(in srgb, var(--el-color-primary) 10%, #fff);
+  --el-color-primary-dark-2: color-mix(in srgb, var(--el-color-primary) 80%, #000);
   --color-primary: var(--el-color-primary);
   --color-success: var(--el-color-success);
   --color-warning: var(--el-color-warning);
@@ -43,6 +50,13 @@ html {
 /* 暗色主题 */
 html.dark {
   --el-color-primary: #4165d7;
+  /* 暗黑下派生色向深色底混色，与 element-plus dark 的混色规则保持一致 */
+  --el-color-primary-light-3: color-mix(in srgb, var(--el-color-primary) 70%, #141414);
+  --el-color-primary-light-5: color-mix(in srgb, var(--el-color-primary) 50%, #141414);
+  --el-color-primary-light-7: color-mix(in srgb, var(--el-color-primary) 30%, #141414);
+  --el-color-primary-light-8: color-mix(in srgb, var(--el-color-primary) 20%, #141414);
+  --el-color-primary-light-9: color-mix(in srgb, var(--el-color-primary) 10%, #141414);
+  --el-color-primary-dark-2: color-mix(in srgb, var(--el-color-primary) 80%, #fff);
 
   --color-white: #000;
   --color-black: #fff;

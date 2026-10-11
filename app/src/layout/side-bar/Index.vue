@@ -29,7 +29,8 @@ function resolvePath(parentPath, path) {
  */
 function createMenuList(routes, parentPath = '') {
   return routes
-    .filter(item => hasResource(item.meta?.resource))
+    // hidden 路由（如个人中心）不生成菜单
+    .filter(item => !item.meta?.hidden && hasResource(item.meta?.resource))
     .map((item) => {
       const path = resolvePath(parentPath, item.path)
       const menu = { path, meta: item.meta }
@@ -52,9 +53,10 @@ const width = computed(() => {
   return collapse.value ? 'calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2)' : '220px'
 })
 
-// 菜单：只渲染 admin 路由下的子路由
+// 菜单：静态壳里的 admin 子路由（home）+ 登录后合并出的业务菜单（useRouteStore）
 const adminChildren = router.options.routes.find(item => item.name === 'admin')?.children || []
-const sideMenu = createMenuList(adminChildren)
+const routeStore = useRouteStore()
+const sideMenu = computed(() => createMenuList([...adminChildren, ...routeStore.menus]))
 
 onMounted(() => {
   if (document.body.clientWidth < 1000) {

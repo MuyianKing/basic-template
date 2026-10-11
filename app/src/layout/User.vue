@@ -10,7 +10,7 @@ function handleDown(command) {
   if (command === 'loginout') {
     logout()
   } else if (command === 'user') {
-    router.push('/user/info')
+    router.push('/user/profile')
   }
 }
 </script>
@@ -18,14 +18,15 @@ function handleDown(command) {
 <template>
   <el-dropdown class="user-name" trigger="click" @command="handleDown">
     <div class="el-dropdown-link inline-flex items-center cursor-pointer">
-      <el-avatar :src="avatar" />
+      <el-avatar :src="user.avatar || avatar" />
       <div class="ml-2">
-        <span>{{ user.username }}</span>
+        <span>{{ user.nickname || user.username }}</span>
       </div>
     </div>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
+        <el-dropdown-item command="user">个人中心</el-dropdown-item>
+        <el-dropdown-item command="loginout" divided>退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
